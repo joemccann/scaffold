@@ -33,13 +33,13 @@ const readme = stripIndent`
   ## USAGE
 
   \`\`\`sh
-  curl https://${DEFAULT_REGION}-${PROJECT}.cloudfunctions.net/{functionName}?
+  curl https://\${DEFAULT_REGION}-\${PROJECT}.cloudfunctions.net/{functionName}?
   \`\`\`
 
   Or, if you prefer a \`POST\`:
 
   \`\`\`sh
-  curl https://${DEFAULT_REGION}-${PROJECT}.cloudfunctions.net/{functionName} --data '{"": ""}' -H "Content-Type: application/json"
+  curl https://\${DEFAULT_REGION}-\${PROJECT}.cloudfunctions.net/{functionName} --data '{"": ""}' -H "Content-Type: application/json"
   \`\`\`
 
   The expected response:
