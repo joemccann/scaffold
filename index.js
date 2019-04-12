@@ -20,7 +20,7 @@ module.exports = async () => {
   // Generate files
   //
   const apiTemplate = templates.api
-    .replace(/{function}/g, functionName)
+    .replace(/{functionName}/g, functionName)
 
   const pkgFriendlyName = functionName.toLowerCase().replace(/\s/g, '-')
 
@@ -32,6 +32,7 @@ module.exports = async () => {
   const readmeTemplate = templates
     .readme
     .replace(/{synopsis}/g, synopsis)
+    .replace(/{functionName}/g, functionName)
 
   const testTemplate = templates
     .test

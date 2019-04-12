@@ -1,7 +1,7 @@
 const { stripIndent } = require('common-tags')
 
 const api = stripIndent`
-  exports['{function}'] = async (req, res) => {
+  exports['{functionName}'] = async (req, res) => {
     const {
       body,
       query
@@ -22,17 +22,67 @@ const readme = stripIndent`
 
   {synopsis}
 
+  ## REQUIREMENTS
+
+  1. A Google Cloud Account.
+  2. Billing Enabled.
+  3. API Access Enabled.
+  4. \`gcloud\` CLI installed and in your \`$PATH\`.
+  5. A preferred configuration created ( \`gcloud init\` ).
+
   ## USAGE
 
   \`\`\`sh
+  curl https://${DEFAULT_REGION}-${PROJECT}.cloudfunctions.net/{functionName}?
+  \`\`\`
 
+  Or, if you prefer a \`POST\`:
+
+  \`\`\`sh
+  curl https://${DEFAULT_REGION}-${PROJECT}.cloudfunctions.net/{functionName} --data '{"": ""}' -H "Content-Type: application/json"
+  \`\`\`
+
+  The expected response:
+
+  \`\`\`js
+  {
+    "data": {
+    }
+  }
+  \`\`\`
+
+  Or in the case there is a failure:
+
+  \`\`\`js
+  {
+    "err": ""
+  }
   \`\`\`
 
   ## API
 
   \`\`\`sh
-
+  curl https://${DEFAULT_REGION}-${PROJECT}.cloudfunctions.net/{functionName}?
+  curl https://${DEFAULT_REGION}-${PROJECT}.cloudfunctions.net/{functionName}?
+  curl https://${DEFAULT_REGION}-${PROJECT}.cloudfunctions.net/{functionName}?
+  curl https://${DEFAULT_REGION}-${PROJECT}.cloudfunctions.net/{functionName}?
   \`\`\`
+
+  ## DEPLOY
+
+  First, fork or clone this repo, then:
+
+  \`\`\`sh
+  npm i
+  \`\`\`
+
+  Now, deploy it GCP, run the following command in the root of this repository:
+
+  \`\`\`sh
+  gcloud functions deploy {functionName} --runtime nodejs10 --trigger-http --memory 128MB
+  \`\`\`
+
+  You should receive a YAML like response in your terminal including the URL for the Cloud Function.
 
   ## AUTHORS
 
