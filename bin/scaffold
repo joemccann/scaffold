@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+const scaffold = require('..')
+
+;(async function () {
+  const { err } = await scaffold()
+  if (err) {
+    console.error(err)
+    process.exit(1)
+  }
+  process.exit(0)
+})()
