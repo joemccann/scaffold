@@ -33,6 +33,10 @@ module.exports = async () => {
     .readme
     .replace(/{synopsis}/g, synopsis)
 
+  const testTemplate = templates
+    .test
+    .replace(/{functionName}/g, functionName)
+
   try {
     fs.writeFileSync(path.join(cwd, 'index.js'), apiTemplate)
   } catch (err) {
@@ -69,7 +73,7 @@ module.exports = async () => {
   }
 
   try {
-    fs.writeFileSync(path.join(cwd, 'test.js'), templates.test)
+    fs.writeFileSync(path.join(cwd, 'test.js'), testTemplate)
   } catch (err) {
     console.error(`Failed to create the test.js file: ${err.message}`)
     return { err }

@@ -77,7 +77,16 @@ const gitignore = stripIndent`
 
 const test = stripIndent`
   const test = require('tape')
-  const XXX = require('.')
+  const { '{functionName}': XXX } = require('.')
+
+  //
+  // Create a stubbed response object
+  //
+  const res = {
+    send: (body) => {
+      return body
+    }
+  }
 
   const { error, log, dir } = console
 
