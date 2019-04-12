@@ -62,10 +62,10 @@ const readme = stripIndent`
   ## API
 
   \`\`\`sh
-  curl https://${DEFAULT_REGION}-${PROJECT}.cloudfunctions.net/{functionName}?
-  curl https://${DEFAULT_REGION}-${PROJECT}.cloudfunctions.net/{functionName}?
-  curl https://${DEFAULT_REGION}-${PROJECT}.cloudfunctions.net/{functionName}?
-  curl https://${DEFAULT_REGION}-${PROJECT}.cloudfunctions.net/{functionName}?
+  curl https://\${DEFAULT_REGION}-\${PROJECT}.cloudfunctions.net/{functionName}?
+  curl https://\${DEFAULT_REGION}-\${PROJECT}.cloudfunctions.net/{functionName}?
+  curl https://\${DEFAULT_REGION}-\${PROJECT}.cloudfunctions.net/{functionName}?
+  curl https://\${DEFAULT_REGION}-\${PROJECT}.cloudfunctions.net/{functionName}?
   \`\`\`
 
   ## DEPLOY
