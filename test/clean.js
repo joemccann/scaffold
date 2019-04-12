@@ -2,7 +2,7 @@ const { execSync: exec } = require('child_process')
 const path = require('path')
 
 const clean = async () => {
-  const apijs = path.resolve(__dirname, `./api.js`)
+  const apijs = path.resolve(__dirname, `./index.js`)
   const gitignore = path.resolve(__dirname, `./.gitignore`)
   const gcloudignore = path.resolve(__dirname, `./.gcloudignore`)
   const packagejson = path.resolve(__dirname, `./package.json`)
