@@ -11,9 +11,9 @@ const api = stripIndent`
     // TODO: Add Logic 
     //
 
-    if (err) return res.send({ err })
+    if (err) return res.status(404).send({ err })
 
-    return res.send({ data })
+    return res.status(200).send({ data })
   }
 `
 
@@ -84,6 +84,13 @@ const readme = stripIndent`
 
   You should receive a YAML like response in your terminal including the URL for the Cloud Function.
 
+  ## TESTS
+
+  \`\`\`sh 
+  npm i -D
+  npm test
+  \`\`\`
+
   ## AUTHORS
 
   - [Joe McCann](https://twitter.com/joemccann)
@@ -130,15 +137,23 @@ const test = stripIndent`
   const { '{functionName}': XXX } = require('.')
 
   //
-  // Create a stubbed response object
+  // Create a mock request and response method
   //
-  const res = {
-    send: (body) => {
-      return body
-    }
+
+  function status (code) {
+    this.statusCode = code
+    return this
   }
 
-  const { error, log, dir } = console
+  function send (obj) {
+    const body = { ...this, ...obj }
+    return body
+  }
+
+  const res = {
+    status,
+    send
+  }
 
   test('sanity', t => {
     t.ok(true)
@@ -147,10 +162,7 @@ const test = stripIndent`
 
   test('', async t => {
     const { err, data } = await XXX()
-    if (err) {
-      error(err)
-      return t.end()
-    }
+    t.ok(!err)
     t.ok(data)
     t.end()
   })
