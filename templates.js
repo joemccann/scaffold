@@ -160,10 +160,19 @@ const test = stripIndent`
     t.end()
   })
 
-  test('', async t => {
-    const { err, data } = await XXX()
+  test('pass - ', async t => {
+    const { err, data, statusCode } = await XXX()
     t.ok(!err)
     t.ok(data)
+    t.equals(statusCode, 200)
+    t.end()
+  })
+
+  test('fail - ', async t => {
+    const { err, data, statusCode } = await XXX()
+    t.ok(err)
+    t.ok(!data)
+    t.equals(statusCode, 404)
     t.end()
   })
 `
