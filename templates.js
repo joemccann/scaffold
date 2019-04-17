@@ -1,7 +1,15 @@
 const { stripIndent } = require('common-tags')
 
 const api = stripIndent`
-  exports['{functionName}'] = async (req, res) => {
+
+  const cors = require('cors-for-cloud-functions')
+  
+  exports['{functionName}'] = async (request, response) => {
+
+    const { req, res, isOptions } = cors(request, response)
+
+    if (isOptions) return res.status(204).send('')
+
     const {
       body,
       query
@@ -11,7 +19,7 @@ const api = stripIndent`
     // TODO: Add Logic 
     //
 
-    if (err) return res.status(404).send({ err })
+    if (err) return res.status(404).send({ err: err.message })
 
     return res.status(200).send({ data })
   }
@@ -120,7 +128,9 @@ const packagejson = stripIndent`
       "url": "https://github.com/joemccann/{functionName}/issues"
     },
     "homepage": "https://github.com/joemccann/{functionName}#readme",
-    "dependencies": {},
+    "dependencies": {
+      "cors-for-cloud-functions": "github:joemccann/cors-for-cloud-functions"
+    },
     "devDependencies": {
       "standard": "^12.0.1",
       "tape": "^4.10.1"
@@ -130,6 +140,8 @@ const packagejson = stripIndent`
 const gitignore = stripIndent`
   .DS_Store
   node_modules
+  .env.yaml
+  .env
 `
 
 const test = stripIndent`
@@ -137,7 +149,7 @@ const test = stripIndent`
   const { '{functionName}': XXX } = require('.')
 
   //
-  // Create a mock request and response method
+  // Create mock status, send and set methods; mock response object
   //
 
   function status (code) {
@@ -150,9 +162,15 @@ const test = stripIndent`
     return body
   }
 
+  function set (value) {
+    this[value] = value
+    return this
+  }
+
   const res = {
     status,
-    send
+    send,
+    set
   }
 
   test('sanity', t => {
